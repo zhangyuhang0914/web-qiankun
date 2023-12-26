@@ -6,6 +6,7 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ViteImages from 'vite-plugin-vue-images'
 // https://vitejs.dev/config/
 
 // 设置文根
@@ -23,6 +24,9 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()]
+    }),
+    ViteImages({
+      dirs: ['src/assets/images'] // 指明图片存放目录
     })
   ],
   css: {

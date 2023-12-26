@@ -7,10 +7,14 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ViteImages from 'vite-plugin-vue-images'
 // https://vitejs.dev/config/
 
 // 设置文根 用于nginx上下文
 const BASE_URL = '/mic-pc-home/'
+let port: any = '8081'
+let host: any = 'localhost'
+const publicPath: string = process.env.NODE_ENV === 'production' ? BASE_URL : `//${host}:${port}`
 // useDevMode 开启时与热更新插件冲突
 // 如果是在主应用中加载子应用vite,必须打开这个,否则vite加载不成功, 单独运行没影响
 const useDevMode = true
@@ -29,6 +33,9 @@ export default defineConfig(({ mode }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
+      }),
+      ViteImages({
+        dirs: ['src/assets/images'] // 指明图片存放目录
       })
     ],
     css: {
@@ -54,7 +61,8 @@ export default defineConfig(({ mode }) => {
     },
     base: BASE_URL,
     server: {
-      port: 8081,
+      origin: publicPath,
+      port: port,
       host: '0.0.0.0',
       https: false,
       open: false, // 启动服务是否自动打开浏览器

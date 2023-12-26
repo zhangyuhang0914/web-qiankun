@@ -3,6 +3,7 @@
   .test-select
     div {{ 'home' }}
     div(style="cursor: pointer" @click="toLink") {{ '404' }}
+    img(:src="walk")
 </template>
 
 <script lang="ts">
